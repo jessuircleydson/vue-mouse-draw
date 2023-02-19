@@ -1,8 +1,17 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <input type="color" v-model="canvasColor">
-    <canvas id="myCanvas" width="560" height="360" @mousemove="draw" @mousedown="beginDrawing" @mouseup="stopDrawing" />
+    <img alt="Vue logo" src="../assets/logo.png" id="logo" />
+    <div class="canvas-container">
+      <div class="control-group">
+
+        <input type="color" v-model="canvasColor">
+         <div class="input-group">
+           <label for="lineWidth">Largura da Linha</label>
+           <input id="lineWidth" type="number" v-model="canvasLineWidth">
+         </div>
+      </div>
+      <canvas id="myCanvas" :width="canvasW" :height="canvasH" @mousemove="draw" @mousedown="beginDrawing" @mouseup="stopDrawing" />
+    </div>
   </div>
 </template>
 
@@ -16,6 +25,9 @@ export default {
       y: 0,
       isDrawing: false,
       canvasColor: 'black',
+      canvasW: 0,
+      canvasH: 0,
+      canvasLineWidth: 1,
     }
   },
   methods: {
@@ -23,7 +35,7 @@ export default {
       let ctx = this.canvas;
       ctx.beginPath();
       ctx.strokeStyle = this.canvasColor;
-      ctx.lineWidth = 1;
+      ctx.lineWidth = this.canvasLineWidth;
       ctx.moveTo(x1, y1);
       ctx.lineTo(x2, y2);
       ctx.stroke();
@@ -52,13 +64,38 @@ export default {
   },
   mounted() {
     var c = document.querySelector("#myCanvas");
-    var ctx = c.getContext("2d");    
+    this.canvasW = window.innerWidth - 100;
+    this.canvasH = window.innerHeight - 200;
+    var ctx = c.getContext("2d");
     this.canvas = ctx;
   },
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#logo {
+    max-width: 50px;
+}
+.canvas-container {
+  padding: 20px;
+  .control-group{
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}
 #myCanvas {
   border: 2px solid black;
 }
