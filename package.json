@@ -1,5 +1,5 @@
 {
-  "name": "hello-world",
+  "name": "vue-draw",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,11 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@mediapipe/hands": "^0.4.1675469240",
+    "@tensorflow-models/hand-pose-detection": "^2.0.0",
+    "@tensorflow/tfjs-backend-webgl": "^4.2.0",
+    "@tensorflow/tfjs-converter": "^4.2.0",
+    "@tensorflow/tfjs-core": "^4.2.0",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
